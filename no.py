@@ -57,13 +57,12 @@ for root, dirs, files in os.walk(folder_path):
                 data['TMAX'] = pd.to_numeric(data['TMAX'], errors='coerce', downcast='integer')
                 data['TAVG'] = pd.to_numeric(data['TAVG'], errors='coerce', downcast='integer')
                 data['PRCP'] = pd.to_numeric(data['PRCP'], errors='coerce', downcast='integer')
-                #data['SNOW'] = pd.to_numeric(data['SNOW'], errors='coerce', downcast='integer')
-                #data['SNWD'] = pd.to_numeric(data['SNWD'], errors='coerce', downcast='integer')
-                #data['PGTM'] = pd.to_numeric(data['PGTM'], errors='coerce', downcast='integer')
                 data['STATION'] = data['STATION'].astype(str)
                 data['NAME'] = data['NAME'].astype(str)
                 data['LATITUDE'] = data['LATITUDE'].astype(str)
                 data['LONGITUDE'] = data['LONGITUDE'].astype(str)
+                data['ELEVATION'] = data['ELEVATION'].astype(str)
+
             data = data.dropna()
     
             db_connection = mysql.connector.connect(
@@ -78,17 +77,18 @@ for root, dirs, files in os.walk(folder_path):
 
             # Préparer les données pour l'insertion
             values = data[['TMIN', 'TMAX', 'TAVG', 'PRCP']].values.tolist()
+            values = data[['STATION', 'NAME', 'LATITUDE', 'LONGITUDE', 'ELEVATION']].values.tolist()
+            values = data[['DATE']].values.tolist()
 
             # Créer la requête d'insertion
             sql = "INSERT INTO fact_temperature (TMIN, TMAX, TAVG, PRCP) VALUES (%s, %s, %s, %s)"
+            sql = "INSERT INTO station (station, name, latitude, longitude, elevation ) VALUES (%s, %s, %s, %s, %s)"
+            sql = "INSERT INTO date (date) VALUES (%s)"
 
             # Insérer les données dans la table
             cursor.executemany(sql, values)
             db_connection.commit()
             cursor.close()
             db_connection.close()
-
-
-            # Afficher les données après la conversion
             #print(data)
 
