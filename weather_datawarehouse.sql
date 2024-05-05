@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 30 avr. 2024 à 21:42
+-- Généré le : dim. 05 mai 2024 à 16:06
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -29,9 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `date` (
   `ID` int(11) NOT NULL,
-  `day` int(11) NOT NULL,
-  `mounth` int(11) NOT NULL,
-  `year` int(11) NOT NULL
+  `date` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -42,15 +40,15 @@ CREATE TABLE `date` (
 
 CREATE TABLE `fact_temperature` (
   `ID` int(11) NOT NULL,
-  `TMIN` int(11) NOT NULL,
-  `TMAX` int(11) NOT NULL,
-  `TAVG` int(11) NOT NULL,
-  `PRCP` int(11) NOT NULL,
-  `SNOW` int(11) NOT NULL,
-  `SNWD` int(11) NOT NULL,
-  `PGTM` int(11) NOT NULL,
-  `id_date` int(11) NOT NULL,
-  `id_station` int(11) NOT NULL
+  `TMIN` float DEFAULT NULL,
+  `TMAX` float DEFAULT NULL,
+  `TAVG` float DEFAULT NULL,
+  `PRCP` float DEFAULT NULL,
+  `SNOW` float DEFAULT NULL,
+  `SNWD` float DEFAULT NULL,
+  `PGTM` float DEFAULT NULL,
+  `id_date` int(11) DEFAULT NULL,
+  `id_station` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -62,10 +60,10 @@ CREATE TABLE `fact_temperature` (
 CREATE TABLE `station` (
   `ID` int(11) NOT NULL,
   `station` varchar(30) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `latitude` varchar(30) NOT NULL,
-  `longitude` varchar(30) NOT NULL,
-  `elevation` varchar(30) NOT NULL
+  `name` varchar(30) DEFAULT NULL,
+  `latitude` varchar(30) DEFAULT NULL,
+  `longitude` varchar(30) DEFAULT NULL,
+  `elevation` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
